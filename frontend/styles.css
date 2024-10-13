@@ -11,6 +11,12 @@ h1 {
   text-align: center;
 }
 
+.slider-form {
+  background-color: rgba(247, 240, 235, 0.7);
+  float: right;
+  position: absolute;
+}
+
 .hidden {
   visibility: hidden;
 }
@@ -18,7 +24,6 @@ h1 {
 .none {
   display: none;
 }
-
 
 .planetContainer {
   width: 300px;
@@ -30,7 +35,6 @@ h1 {
   position: absolute;
   transform: translate(-50%, -50%);
 }
-
 
 #action {
   background-size: 4em 4em;

@@ -4,6 +4,10 @@
   let newX = 0, newY = 0, startX = 0, startY = 0;
   let offsetX = 0;
   let offsetY = 0;
+
+  /**
+   * Initiates functions needed to run the program.
+   */
   function init() {
     /* for every button, when clicked, instantiate a new planet onto the container */
     let buttonList = qsa('button');
@@ -12,7 +16,9 @@
     }
   }
 
-
+  /**
+   * Adds a new planet onto the outer space container.
+   */
   function addPlanet() {
     // create container
     let newPlanet = gen('div');
@@ -34,6 +40,9 @@
     newPlanet.addEventListener('mousedown', planetMouseDown);
   }
 
+  /**
+   * Generates forms for planet customability
+   */
   function makeForm() {
     let parentForm = gen('form');
     parentForm.classList.add('slider-form');
@@ -76,26 +85,15 @@
     return parentForm;
   }
 
-  // code to add
-
   /**
    *  activates when mouse clicks on planet
       begin "dragging" functionality
    * @param {*} e - event listener
    */
   function planetMouseDown(e) {
-
-    // startX = e.clientX - offsetX;
-    // startY = e.clientY - offsetY;
-
-    // e.target.style.top = startY + 'px';
-    // e.target.style.left = startX + 'px';
-
-
     if (!e.target.querySelector("form")) {
       return;
     }
-
 
     e.target.querySelector("form").classList.add("hidden");
     e.target.addEventListener('mousemove', planetMouseMove);
@@ -127,7 +125,6 @@
       return;
     }
 
-
     e.target.querySelector(".hidden").classList.remove("hidden");
   }
 
@@ -140,10 +137,6 @@
 
   function gen(tag) {
     return document.createElement(tag);
-  }
-
-  function qs(selector) {
-    return document.querySelector(selector);
   }
 
   function qsa(query) {
