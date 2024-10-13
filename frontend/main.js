@@ -28,6 +28,7 @@
     id('container').appendChild(newPlanet);
 
     promptDiv = gen('div');
+    let createdForm = makeForm();
     form = gen('form');
     angleText = gen('p');
     sliderAngle = gen('input');
@@ -37,10 +38,11 @@
 
     promptDiv.appendChild(form);
     form.innerHTML = '<p>Angle</p>        <input type="range" min="1" max="360" value="0" class="slider angle-slider">        <p>Magnitude</p>        <input type="range" min="1" max="100" value="50" class="slider magn-slider"></input>';
+    console.log(createdForm);
 
 
 
-    newPlanet.appendChild(promptDiv);
+    newPlanet.appendChild(createdForm);
 
 
 
@@ -65,6 +67,48 @@
     newPlanet.addEventListener('mousedown', planetMouseDown);
 
 
+  }
+
+  function makeForm() {
+    let parentForm = gen('form');
+    parentForm.classList.add('slider-form');
+    let angleText = gen('p');
+    angleText.textContent = 'Angle';
+    let sliderAngle = gen('input');
+    sliderAngle.type = 'range';
+    sliderAngle.min = 1;
+    sliderAngle.max = 360;
+    sliderAngle.value = 0;
+    sliderAngle.classList.add('slider');
+    sliderAngle.setAttribute('id', 'angle-slider');
+    let angleValue = gen('p');
+    angleValue.innerHTML = sliderAngle.value;
+    sliderAngle.oninput = function () {
+      angleValue.innerHTML = this.value;
+    }
+
+    let magText = gen('p');
+    magText.textContent = 'Magnitude';
+    let sliderMag = gen('input');
+    sliderMag.type = 'range';
+    sliderMag.min = 1;
+    sliderMag.max = 100;
+    sliderMag.value = 50;
+    sliderMag.classList.add('slider');
+    sliderMag.setAttribute('id', 'magn-slider');
+    let magValue = gen('p');
+    magValue.innerHTML = sliderMag.value;
+    sliderMag.oninput = function () {
+      magValue.innerHTML = this.value;
+    }
+
+    parentForm.appendChild(angleText);
+    parentForm.appendChild(sliderAngle);
+    parentForm.appendChild(angleValue);
+    parentForm.appendChild(magText);
+    parentForm.appendChild(sliderMag);
+    parentForm.appendChild(magValue);
+    return parentForm;
   }
 
   // code to add
@@ -98,7 +142,7 @@
    * @param {*} e  -event listner
    */
   function planetMouseMove(e) {
-    startX = e.pageX  - offsetX;
+    startX = e.pageX - offsetX;
     startY = e.pageY - offsetY;
 
     e.target.style.top = startY + 'px';
