@@ -9,7 +9,7 @@ COLLISION_THRESHOLD = 0.1
 COEFFICIENT_OF_RESTITUTION = 0.7
 
 
-@app.route('/simulate')
+@app.route('/simulate', methods=['POST'])
 def simulate():
     data = request.json
     if "data" not in data:
