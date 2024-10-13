@@ -1,5 +1,6 @@
 .planetContainer {
   border-radius: 5px;
   cursor: pointer;
-  position: relative;
+  position: absolute;
+  transform: translate(-50%, -50%);
 }

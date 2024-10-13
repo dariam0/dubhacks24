@@ -1,8 +1,8 @@
 (function () {
   window.addEventListener('load', init);
   let newX = 0, newY = 0, startX = 0, startY = 0;
-  let offsetX = 100;
-  let offsetY = 200;
+  let offsetX = 0;
+  let offsetY = 0;
   function init() {
     console.log('hello world');
     /* for every button, when clicked, instantiate a new planet onto the container */
@@ -41,11 +41,11 @@
    */
   function planetMouseDown(e) {
 
-    startX = e.clientX - offsetX;
-    startY = e.clientY - offsetY;
+    // startX = e.clientX - offsetX;
+    // startY = e.clientY - offsetY;
 
-    e.target.style.top = startY + 'px';
-    e.target.style.left = startX + 'px';
+    // e.target.style.top = startY + 'px';
+    // e.target.style.left = startX + 'px';
 
 
 
@@ -58,8 +58,8 @@
    * @param {*} e  -event listner
    */
   function planetMouseMove(e) {
-    startX = e.clientX - offsetX;
-    startY = e.clientY - offsetY;
+    startX = e.pageX  - offsetX;
+    startY = e.pageY - offsetY;
 
     e.target.style.top = startY + 'px';
     e.target.style.left = startX + 'px';
