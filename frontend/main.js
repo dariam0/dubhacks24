@@ -6,7 +6,7 @@
   function init() {
     /* for every button, when clicked, instantiate a new planet onto the container */
     let buttonList = qsa('button');
-    for (let i = 0; i < buttonList.length; i++) {
+    for (let i = 0; i < buttonList.length - 1; i++) {
       buttonList[i].addEventListener('click', addPlanet);
     }
     // TODO: call ur fetch request here
