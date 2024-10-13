@@ -51,7 +51,7 @@ div>img {
 }
 
 #runSim {
-  background-color: #3c1161cc;
+  background-color: #702963;
   color: white;
   font-size: 16px;
   padding: 10px 12px;
@@ -60,6 +60,6 @@ div>img {
 /* Hover and focus effect */
 #runSim:hover,
 #runSim:focus {
-  background-color: #4b127ccc;
+  background-color: #6e7bd7;
   transform: translateY(-2px);
 }
