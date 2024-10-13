@@ -9,30 +9,30 @@
   }
 
   function mouseDown(e) {
-    startX = e.clientX
-    startY = e.clientY
+    startX = e.clientX;
+    startY = e.clientY;
 
-    document.addEventListener('mousemove', mouseMove)
-    document.addEventListener('mouseup', mouseUp)
+    document.addEventListener('mousemove', mouseMove);
+    document.addEventListener('mouseup', mouseUp);
   }
 
   function mouseMove(e) {
-    newX = startX - e.clientX
-    newY = startY - e.clientY
+    newX = startX - e.clientX;
+    newY = startY - e.clientY;
 
-    startX = e.clientX
-    startY = e.clientY
+    startX = e.clientX;
+    startY = e.clientY;
 
-    card.style.top = startY + 'px'
-    card.style.left = startX + 'px'
+    card.style.top = startY + 'px';
+    card.style.left = startX + 'px';
 
-    console.log({ newX, newY })
-    console.log({ startX, startY })
+    console.log({ newX, newY });
+    console.log({ startX, startY });
 
   }
 
   function mouseUp(e) {
-
+    document.removeEventListener('mousemove', mouseMove);
   }
 })();
 
