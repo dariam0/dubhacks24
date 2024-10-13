@@ -23,16 +23,12 @@
     let promptDiv = gen('div');
     let createdForm = makeForm();
     let form = gen('form');
-
     promptDiv.appendChild(form);
-    form.innerHTML = '<p>Angle</p>        <input type="range" min="1" max="360" value="0" class="slider angle-slider">        <p>Magnitude</p>        <input type="range" min="1" max="100" value="50" class="slider magn-slider"></input>';
-    console.log(createdForm);
 
     newPlanet.appendChild(createdForm);
 
     newPlanet.classList.add("planetContainer");
-    console.log("url(" + this.innerHTML + "_planet.png)");
-    newPlanet.style.backgroundImage = "url(icons/" + this.innerHTML + "_planet.png)";
+    newPlanet.style.backgroundImage = "url(icons/" + this.innerHTML.toLowerCase() + "_planet.png)";
     form.classList.add("slider-form");
     promptDiv.classList.add("hidden");
     newPlanet.addEventListener('mousedown', planetMouseDown);
