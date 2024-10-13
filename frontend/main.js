@@ -1,7 +1,8 @@
 (function () {
   window.addEventListener('load', init);
   let newX = 0, newY = 0, startX = 0, startY = 0;
-
+  let offsetX = 100;
+  let offsetY = 200;
   function init() {
     console.log('hello world');
     /* for every button, when clicked, instantiate a new planet onto the container */
@@ -21,17 +22,14 @@
     // create container
     newPlanet = gen('div');
 
-    // planet image
-    newPlanetImg = gen('img');
-    newPlanetImg.src = 'icons/planet.png';
-    newPlanet.appendChild(newPlanetImg);
-
     // add to DOM
     id('container').appendChild(newPlanet);
 
     // add functionality
-    element.classList.add("planetContainer");
+    newPlanet.classList.add("planetContainer");
     newPlanet.addEventListener('mousedown', planetMouseDown);
+
+
   }
 
   // code to add
@@ -42,11 +40,17 @@
    * @param {*} e - event listener
    */
   function planetMouseDown(e) {
-    startX = e.clientX;
-    startY = e.clientY;
 
-    document.addEventListener('mousemove', planetMouseMove);
-    document.addEventListener('mouseup', planetMouseUp);
+    startX = e.clientX - offsetX;
+    startY = e.clientY - offsetY;
+
+    e.target.style.top = startY + 'px';
+    e.target.style.left = startX + 'px';
+
+
+
+    e.target.addEventListener('mousemove', planetMouseMove);
+    e.target.addEventListener('mouseup', planetMouseUp);
   }
 
   /**
@@ -54,11 +58,8 @@
    * @param {*} e  -event listner
    */
   function planetMouseMove(e) {
-    newX = startX - e.clientX
-    newY = startY - e.clientY + offset;
-
-    startX = e.clientX - offset;
-    startY = e.clientY - offset;
+    startX = e.clientX - offsetX;
+    startY = e.clientY - offsetY;
 
     e.target.style.top = startY + 'px';
     e.target.style.left = startX + 'px';
@@ -74,7 +75,7 @@
    * @param {*} e - functionality
    */
   function planetMouseUp(e) {
-    document.removeEventListener('mousemove', mouseMove);
+    e.target.removeEventListener('mousemove', planetMouseMove);
   }
 
 
