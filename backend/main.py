@@ -69,6 +69,8 @@ def simulate():
             return make_response(jsonify({"code": 400, "res": False, "msg": "No magnitude provided"}), 400)
         if "radius" not in data[i] or data[i]["radius"] is None:
             return make_response(jsonify({"code": 400, "res": False, "msg": "No radius provided"}), 400)
+        if "radius" not in data[i] or data[i]["url"] is None:
+            return make_response(jsonify({"code": 400, "res": False, "msg": "No url provided"}), 400)
 
         if not isinstance(data[i]["angle"], str):
             return make_response(jsonify({"code": 400, "res": False, "msg": "Incorrect type for angle"}), 400)
@@ -163,6 +165,7 @@ def simulate():
             element["y_pos"] = round(x_y[i], PRECISION)
             element["x_velocity"] = round(v_x[i], PRECISION)
             element["y_velocity"] = round(v_y[i], PRECISION)
+            element["url"] = data[i]["url"]
 
             # Add to current iteration
             iter.append(element)
