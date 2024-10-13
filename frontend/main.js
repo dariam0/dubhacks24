@@ -4,8 +4,24 @@
 
   function init() {
     console.log('hello world');
-    const card = document.getElementById('card');
+    /* for every button, when clicked, instantiate a new planet onto the container */
+    let buttonList = qsa('button');
+    console.log(buttonList);
+    for (let i = 0; i < buttonList.length; i++) {
+      buttonList[i].addEventListener('click', addPlanet);
+    }
+    /**
+     * const card = document.getElementById('card');
+
     card.addEventListener('mousedown', mouseDown);
+    */
+  }
+
+  function addPlanet() {
+    newPlanet = gen('img');
+    newPlanet.src = 'icons/planet.png';
+    newPlanet.addEventListener('mousedown', mouseDown);
+    id('container').appendChild(newPlanet);
   }
 
   function mouseDown(e) {
@@ -34,5 +50,22 @@
   function mouseUp(e) {
     document.removeEventListener('mousemove', mouseMove);
   }
+
+  function id(id) {
+    return document.getElementById(id);
+  }
+
+  function gen(tag) {
+    return document.createElement(tag);
+  }
+
+  function qs(selector) {
+    return document.querySelector(selector);
+  }
+
+  function qsa(query) {
+    return document.querySelectorAll(query);
+  }
+
 })();
 

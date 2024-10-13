@@ -1,25 +1,30 @@
-/* body {
-  background-color: #002a5c;
-} */
-
 body {
   padding: 0;
   margin: 0;
-}
-
-#container {
   background-color: #212228;
   background-image: linear-gradient(#292a30 0.1em, transparent 0.1em),
     linear-gradient(90deg, #292a30 0.1em, transparent 0.1em);
-  background-size: 4em 4em;
-  height: 100vh;
 }
 
-#card {
-  width: 400px;
-  height: 400px;
-  background-color: #AFDA9F;
-  border-radius: 5px;
+#card-container {
+  display: flex;
+}
+
+.card {
   cursor: pointer;
   position: fixed;
+}
+
+div>img {
+  display: flex;
+  flex-direction: column;
+  width: 150px;
+  height: 150px;
+  border-radius: 5px;
+}
+
+#container {
+  background-size: 4em 4em;
+  height: 100vh;
+  background-color: palevioletred;
 }
