@@ -10,14 +10,6 @@
     for (let i = 0; i < buttonList.length - 1; i++) {
       buttonList[i].addEventListener('click', addPlanet);
     }
-    // TODO: call ur fetch request here
-
-
-    /**
-     * const card = document.getElementById('card');
-
-    card.addEventListener('mousedown', mouseDown);
-    */
   }
 
 
@@ -31,43 +23,19 @@
     let promptDiv = gen('div');
     let createdForm = makeForm();
     let form = gen('form');
-    let angleText = gen('p');
-    let sliderAngle = gen('input');
-
-    let magText = gen('p');
-    let sliderMag = gen('input');
 
     promptDiv.appendChild(form);
     form.innerHTML = '<p>Angle</p>        <input type="range" min="1" max="360" value="0" class="slider angle-slider">        <p>Magnitude</p>        <input type="range" min="1" max="100" value="50" class="slider magn-slider"></input>';
     console.log(createdForm);
 
-
-
     newPlanet.appendChild(createdForm);
 
-
-
-    /*
-
-
-    <div>
-      <form class="slider-form">
-        <p>Angle</p>
-        <input type="range" min="1" max="360" value="0" class="slider" id="angle-slider">
-        <p>Magnitude</p>
-        <input type="range" min="1" max="100" value="50" class="slider" id="magn-slider">
-      </form>
-    </div>
-
-    */
-
-    // add functionality
     newPlanet.classList.add("planetContainer");
+    console.log("url(" + this.innerHTML + "_planet.png)");
+    newPlanet.style.backgroundImage = "url(icons/" + this.innerHTML + "_planet.png)";
     form.classList.add("slider-form");
     promptDiv.classList.add("hidden");
     newPlanet.addEventListener('mousedown', planetMouseDown);
-
-
   }
 
   function makeForm() {
