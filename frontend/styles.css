@@ -42,5 +42,6 @@ div>img {
 #container {
   background-size: 4em 4em;
   height: 100vh;
-  background-color: palevioletred;
+  background-image: url("icons/jose-g-ortega-castro-space.jpg");
+  background-size: cover;
 }
