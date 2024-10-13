@@ -106,7 +106,7 @@ def simulate():
                         print("Angle: " + str(angle))
                         print("v_x[i]: " + str(v_x[i]))
                         print("v_y[i]: " + str(v_y[i]))
-                        
+
             # Calculate new position
             x_x[i] = x_x[i] + DELTA_TIME * (v_x[i] + temp_v_x) * 1.0 / 2
             x_y[i] = x_y[i] + DELTA_TIME * (v_y[i] + temp_v_y) * 1.0 / 2
@@ -115,8 +115,8 @@ def simulate():
         for i in range(num_obj):
             for j in range(i + 1, num_obj):
                 if DEBUG:
-                    print("distance: " + str(dist(x_x[i], x_x[j], x_y[i], x_y[j])) + "  Boundaries: " +
-                          str(data[i]["radius"] + data[j]["radius"] + COLLISION_THRESHOLD))
+                    print("Distance: " + str(dist(x_x[i], x_x[j], x_y[i], x_y[j])) )
+                    print("Boundaries: " + str(data[i]["radius"] + data[j]["radius"] + COLLISION_THRESHOLD))
                 if dist(x_x[i], x_x[j], x_y[i], x_y[j]) <= \
                         data[i]["radius"] + data[j]["radius"] + COLLISION_THRESHOLD:
                     # There is a collision, flip the direction of the velocity
