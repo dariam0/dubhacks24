@@ -23,19 +23,19 @@
 
   function addPlanet() {
     // create container
-    newPlanet = gen('div');
+    let newPlanet = gen('div');
 
     // add to DOM
     id('container').appendChild(newPlanet);
 
-    promptDiv = gen('div');
+    let promptDiv = gen('div');
     let createdForm = makeForm();
-    form = gen('form');
-    angleText = gen('p');
-    sliderAngle = gen('input');
+    let form = gen('form');
+    let angleText = gen('p');
+    let sliderAngle = gen('input');
 
-    magText = gen('p');
-    sliderMag = gen('input');
+    let magText = gen('p');
+    let sliderMag = gen('input');
 
     promptDiv.appendChild(form);
     form.innerHTML = '<p>Angle</p>        <input type="range" min="1" max="360" value="0" class="slider angle-slider">        <p>Magnitude</p>        <input type="range" min="1" max="100" value="50" class="slider magn-slider"></input>';

@@ -84,7 +84,6 @@ function createSimPlanet() {
 
     // add to DOM
     id('action').appendChild(newPlanet);
-    newPlanet.appendChild(promptDiv);
 
 
     newPlanet.classList.add("planetContainer");
