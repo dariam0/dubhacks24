@@ -5,7 +5,6 @@ from init import app
 from scipy.constants import G
 
 # Define constants
-
 # The time for each iteration
 DELTA_TIME = 0.01
 
@@ -14,6 +13,9 @@ COLLISION_THRESHOLD = 0.1
 
 # How much the objects would bounce after collision
 COEFFICIENT_OF_RESTITUTION = 0.7
+
+# The precision of the calculations (how many digits)
+PRECISION = 6
 
 # Debug mode
 DEBUG = False
@@ -90,6 +92,7 @@ def simulate():
                 if i != j:
                     # Calculate acceleration
                     acceleration = G * data[j]["mass"] / dist(orig_x_x[i], orig_x_x[j], orig_x_y[i], orig_x_y[j])
+
                     # Calculate the direction of the force
                     flat_line = np.array([1, 0])
                     direction = unit_vector(np.array([orig_x_x[j] - orig_x_x[i], orig_x_y[j] - orig_x_y[i]]))
@@ -111,6 +114,10 @@ def simulate():
             x_x[i] = x_x[i] + DELTA_TIME * (v_x[i] + temp_v_x) * 1.0 / 2
             x_y[i] = x_y[i] + DELTA_TIME * (v_y[i] + temp_v_y) * 1.0 / 2
 
+            if DEBUG:
+                print("x_x[i]: " + str(x_x[i]))
+                print("x_y[i]: " + str(x_y[i]))
+
         # Check for collisions
         for i in range(num_obj):
             for j in range(i + 1, num_obj):
@@ -127,10 +134,10 @@ def simulate():
 
             # Initialize return element
             element = {}
-            element["x_pos"] = round(x_x[i], 6)
-            element["y_pos"] = round(x_y[i], 6)
-            element["x_velocity"] = round(v_x[i], 6)
-            element["y_velocity"] = round(v_y[i], 6)
+            element["x_pos"] = round(x_x[i], PRECISION)
+            element["y_pos"] = round(x_y[i], PRECISION)
+            element["x_velocity"] = round(v_x[i], PRECISION)
+            element["y_velocity"] = round(v_y[i], PRECISION)
 
             # Add to current iteration
             iter.append(element)
