@@ -17,11 +17,21 @@
     }
     const jsonTest = JSON.stringify(test);
     console.log(jsonTest);
-    fetch('http://127.0.0.1:80/simulate', { method: "POST", 
+    id("runSim").addEventListener('click', runSimulation);
+
+  }
+
+
+  function runSimulation() {
+
+    let data = compileAllPlanets();
+
+
+    fetch('http://127.0.0.1:80/simulate', { method: "POST",
       headers: {
         'Content-Type': 'application/json'  // Add this header to specify JSON
       },
-      body: jsonTest })
+      body: data })
       .then(statusCheck)
       .then(animatePlanets)  // Process and animate the planets
       .catch(fail)
@@ -29,6 +39,44 @@
 
   function testJson(e) {
     console.log(e);
+  }
+
+
+
+  function compileAllPlanets() {
+    // for each planet
+    let planets = document.querySelectorAll(".planetContainer");
+    console.log(planets);
+    let items = [];
+
+    for (let i = 0; i < planets.length; i++) {
+      // get data for each]
+
+      let currentPlannet = planets[i];
+      let xPos = currentPlannet.pageX;
+      let yPos = currentPlannet.pageY;
+
+      let mass = 2; // change later
+
+      //angle-slider
+      // magn-slider
+
+      let angeVal = document.querySelector(".angle-slider").value;
+      let magVal = document.querySelector(".magn-slider").value;
+
+      let planetChild = {"x_pos": xPos,
+                        "y_pos": yPos,
+                        "angle": angeVal,
+                        "magnitude": magVal,
+                        "radius": 10,
+                        "mass": mass
+       };
+
+
+       items.push(planetChild);
+    }
+
+    return '{"data":{"items":'   +  JSON.stringify(items)  + '} }';
   }
 
 
