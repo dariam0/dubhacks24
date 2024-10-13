@@ -18,8 +18,10 @@
   }
 
   function addPlanet() {
-    newPlanet = gen('img');
-    newPlanet.src = 'icons/planet.png';
+    newPlanet = gen('div');
+    newPlanetImg = gen('img');
+    newPlanetImg.src = 'icons/planet.png';
+    newPlanet.appendChild(newPlanetImg);
     newPlanet.addEventListener('mousedown', mouseDown);
     id('container').appendChild(newPlanet);
   }
