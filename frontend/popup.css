@@ -1,4 +1,5 @@
 .slider-form {
   background-color: chocolate;
-  float: left;
+  float: right;
+  position: absolute;
 }
