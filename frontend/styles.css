@@ -45,3 +45,16 @@ div>img {
   background-image: url("icons/jose-g-ortega-castro-space.jpg");
   background-size: cover;
 }
+
+#runSim {
+  background-color: #3c1161cc;
+  color: white;
+  font-size: 16px;
+  padding: 10px 12px;
+}
+
+/* Hover and focus effect */
+#runSim:hover, #runSim:focus {
+  background-color: #4b127ccc;
+  transform: translateY(-2px);
+}
