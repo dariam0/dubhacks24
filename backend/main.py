@@ -1,6 +1,6 @@
 import math
 import numpy as np
-from flask import jsonify, request
+from flask import jsonify, request, make_response
 from init import app
 from scipy.constants import G
 
@@ -15,6 +15,9 @@ COLLISION_THRESHOLD = 0.1
 # How much the objects would bounce after collision
 COEFFICIENT_OF_RESTITUTION = 0.7
 
+# Debug mode
+DEBUG = False
+
 
 # Simulate the movement
 @app.route('/simulate', methods=['POST'])
@@ -24,11 +27,11 @@ def simulate():
 
     # Check if necessary data are there
     if "data" not in data:
-        return jsonify({"code": 400, "res": False, "msg": "No data provided"})
+        return make_response(jsonify({"code": 400, "res": False, "msg": "No data provided"}), 400)
     if "items" not in data["data"] or len(data["data"]) is 0:
-        return jsonify({"code": 400, "res": False, "msg": "No items provided"})
+        return make_response(jsonify({"code": 400, "res": False, "msg": "No items provided"}), 400)
     if "time" not in data["data"]:
-        return jsonify({"code": 400, "res": False, "msg": "No time provided"})
+        return make_response(jsonify({"code": 400, "res": False, "msg": "No time provided"}), 400)
 
     data = data["data"]
     time = data["time"]
@@ -45,18 +48,25 @@ def simulate():
     # Check if necessary data are there
     for i in range(num_obj):
         if "angle" not in data[i] or data[i]["angle"] is None:
-            return jsonify({"code": 400, "res": False, "msg": "No angle provided"})
+            return make_response(jsonify({"code": 400, "res": False, "msg": "No angle provided"}), 400)
         if "x_pos" not in data[i] or data[i]["x_pos"] is None:
-            return jsonify({"code": 400, "res": False, "msg": "No x_pos provided"})
+            return make_response(jsonify({"code": 400, "res": False, "msg": "No x_pos provided"}), 400)
         if "y_pos" not in data[i] or data[i]["y_pos"] is None:
-            return jsonify({"code": 400, "res": False, "msg": "No y_pos provided"})
+            return make_response(jsonify({"code": 400, "res": False, "msg": "No y_pos provided"}), 400)
         if "mass" not in data[i] or data[i]["mass"] is None:
-            return jsonify({"code": 400, "res": False, "msg": "No mass provided"})
+            return make_response(jsonify({"code": 400, "res": False, "msg": "No mass provided"}), 400)
         if "magnitude" not in data[i] or data[i]["magnitude"] is None:
-            return jsonify({"code": 400, "res": False, "msg": "No magnitude provided"})
+            return make_response(jsonify({"code": 400, "res": False, "msg": "No magnitude provided"}), 400)
         if "radius" not in data[i] or data[i]["radius"] is None:
-            return jsonify({"code": 400, "res": False, "msg": "No radius provided"})
+            return make_response(jsonify({"code": 400, "res": False, "msg": "No radius provided"}), 400)
 
+    # Check for collisions
+    for i in range(num_obj):
+        for j in range(i + 1, num_obj):
+            if dist(data[i]["x_pos"], data[j]["x_pos"], data[i]["y_pos"], data[j]["y_pos"]) <= \
+                    data[i]["radius"] + data[j]["radius"] + COLLISION_THRESHOLD:
+                return make_response(jsonify({"code": 400, "res": False, "msg": "Collision detected for objects " +
+                                                                                str(i) + " and " + str(j)}), 400)
         # Load data
         # Decompose the velocity
         v_x.append(1.0 * int(data[i]["magnitude"]) * math.cos(math.radians(int(data[i]["angle"]))))
@@ -91,6 +101,12 @@ def simulate():
                     v_x[i] = v_x[i] + DELTA_TIME * acceleration * math.cos(angle)
                     v_y[i] = v_y[i] + DELTA_TIME * acceleration * math.sin(angle)
 
+                    if DEBUG:
+                        print("Acceleration: " + str(acceleration))
+                        print("Angle: " + str(angle))
+                        print("v_x[i]: " + str(v_x[i]))
+                        print("v_y[i]: " + str(v_y[i]))
+                        
             # Calculate new position
             x_x[i] = x_x[i] + DELTA_TIME * (v_x[i] + temp_v_x) * 1.0 / 2
             x_y[i] = x_y[i] + DELTA_TIME * (v_y[i] + temp_v_y) * 1.0 / 2
@@ -98,7 +114,9 @@ def simulate():
         # Check for collisions
         for i in range(num_obj):
             for j in range(i + 1, num_obj):
-                # print("distance: " + str(dist(x_x[i], x_x[j], x_y[i], x_y[j])) + "  Boundaries: " + str(data[i]["radius"] + data[j]["radius"] + COLLISION_THRESHOLD))
+                if DEBUG:
+                    print("distance: " + str(dist(x_x[i], x_x[j], x_y[i], x_y[j])) + "  Boundaries: " +
+                          str(data[i]["radius"] + data[j]["radius"] + COLLISION_THRESHOLD))
                 if dist(x_x[i], x_x[j], x_y[i], x_y[j]) <= \
                         data[i]["radius"] + data[j]["radius"] + COLLISION_THRESHOLD:
                     # There is a collision, flip the direction of the velocity
