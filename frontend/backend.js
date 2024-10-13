@@ -30,11 +30,13 @@
     console.log(data);
 
 
-    fetch('http://127.0.0.1:80/simulate', { method: "POST",
+    fetch('http://127.0.0.1:80/simulate', {
+      method: "POST",
       headers: {
         'Content-Type': 'application/json'  // Add this header to specify JSON
       },
-      body: data })
+      body: data
+    })
       .then(statusCheck)
       .then(animatePlanets)  // Process and animate the planets
       .catch(fail)
@@ -64,23 +66,24 @@
       let angeVal = currentPlannet.childNodes[0].childNodes[1].value;
       let magVal = currentPlannet.childNodes[0].childNodes[4].value;
 
-      let planetChild = {"x_pos": xPos,
-                        "y_pos": yPos,
-                        "angle": angeVal,
-                        "magnitude": magVal,
-                        "radius": 150,
-                        "mass": mass,
-                        "url": "" + currentPlannet.style.backgroundImage
-       };
+      let planetChild = {
+        "x_pos": xPos,
+        "y_pos": yPos,
+        "angle": angeVal,
+        "magnitude": magVal,
+        "radius": 150,
+        "mass": mass,
+        "url": "" + currentPlannet.style.backgroundImage
+      };
 
-       console.log(planetChild);
+      console.log(planetChild);
 
-       items.push(planetChild);
+      items.push(planetChild);
     }
 
-    return '{"data":{"items":'  +  JSON.stringify(items)  + ', "time": 3}  }';
+    return '{"data":{"items":' + JSON.stringify(items) + ', "time": 9}  }';
   }
-function createSimPlanet() {
+  function createSimPlanet() {
     // create container
     newPlanet = gen('div');
 
@@ -93,7 +96,7 @@ function createSimPlanet() {
     return newPlanet;
   }
 
-   function gen(tag) {
+  function gen(tag) {
     return document.createElement(tag);
   }
 
@@ -108,7 +111,7 @@ function createSimPlanet() {
       let numOfIterations = data.data.length;
 
       let newPlanets = [];
-      for(let i = 0; i < numOfPlanets; i++) {
+      for (let i = 0; i < numOfPlanets; i++) {
         let planet = createSimPlanet();
         planet.style.backgroundImage = data.data[0][i].url;
         newPlanets.push(planet);
@@ -117,7 +120,7 @@ function createSimPlanet() {
 
       let i = 0;
 
-      const intervalId =setInterval(function() {
+      const intervalId = setInterval(function () {
         for (let j = 0; j < numOfPlanets; j++) {
           // update position
           let currPlannet = newPlanets[j];
@@ -130,14 +133,14 @@ function createSimPlanet() {
         i++;
 
         if (i >= numOfIterations) {
-            clearInterval(intervalId)
+          clearInterval(intervalId)
         }
       }, 10);
 
-      setTimeout(function() {
+      setTimeout(function () {
         reset()
 
-      }, 10 *numOfIterations +  1000);
+      }, 10 * numOfIterations + 1000);
 
     });
 
