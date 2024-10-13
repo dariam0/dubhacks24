@@ -26,6 +26,8 @@
 
     let data = compileAllPlanets();
 
+    console.log(data);
+
 
     fetch('http://127.0.0.1:80/simulate', { method: "POST",
       headers: {
@@ -53,8 +55,9 @@
       // get data for each]
 
       let currentPlannet = planets[i];
-      let xPos = currentPlannet.pageX;
-      let yPos = currentPlannet.pageY;
+      const rect = currentPlannet.getBoundingClientRect();
+      let xPos = rect.left + window.scrollX;
+      let yPos = rect.top + window.scrollY;
 
       let mass = 2; // change later
 
@@ -72,7 +75,6 @@
                         "mass": mass
        };
 
-       console.log(planetChild)
 
 
        items.push(planetChild);
