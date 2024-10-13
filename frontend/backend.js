@@ -69,10 +69,11 @@
                         "angle": angeVal,
                         "magnitude": magVal,
                         "radius": 150,
-                        "mass": mass
+                        "mass": mass,
+                        "url": "" + currentPlannet.style.backgroundImage
        };
 
-
+       console.log(planetChild);
 
        items.push(planetChild);
     }
@@ -109,6 +110,7 @@ function createSimPlanet() {
       let newPlanets = [];
       for(let i = 0; i < numOfPlanets; i++) {
         let planet = createSimPlanet();
+        planet.style.backgroundImage = data.data[0][i].url;
         newPlanets.push(planet);
       }
 
