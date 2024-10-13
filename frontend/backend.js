@@ -39,10 +39,6 @@
       .catch(fail)
   }
 
-  function testJson(e) {
-    console.log(e);
-  }
-
 
 
   function compileAllPlanets() {
@@ -52,26 +48,26 @@
     let items = [];
 
     for (let i = 0; i < planets.length; i++) {
-      // get data for each]
+      // get data for each
 
       let currentPlannet = planets[i];
       const rect = currentPlannet.getBoundingClientRect();
       let xPos = rect.left + window.scrollX;
       let yPos = rect.top + window.scrollY;
 
-      let mass = 2; // change later
-
-      //angle-slider
+      let mass = 100; // change later
+      console.log(currentPlannet.childNodes[0].childNodes[3]);
+      // angle-slider
       // magn-slider
 
-      let angeVal = document.querySelector(".angle-slider").value;
-      let magVal = document.querySelector(".magn-slider").value;
+      let angeVal = currentPlannet.childNodes[0].childNodes[1].value;
+      let magVal = currentPlannet.childNodes[0].childNodes[4].value;
 
       let planetChild = {"x_pos": xPos,
                         "y_pos": yPos,
                         "angle": angeVal,
                         "magnitude": magVal,
-                        "radius": 10,
+                        "radius": 150,
                         "mass": mass
        };
 
@@ -80,12 +76,72 @@
        items.push(planetChild);
     }
 
-    return '{"data":{"items":'  +  JSON.stringify(items)  + ', "time": 1}  }';
+    return '{"data":{"items":'  +  JSON.stringify(items)  + ', "time": 10}  }';
+  }
+function createSimPlanet() {
+    // create container
+    newPlanet = gen('div');
+
+    // add to DOM
+    id('action').appendChild(newPlanet);
+    newPlanet.appendChild(promptDiv);
+
+
+    newPlanet.classList.add("planetContainer");
+
+    return newPlanet;
+  }
+
+   function gen(tag) {
+    return document.createElement(tag);
+  }
+
+  function animatePlanets(response) {
+    response.json().then(data => {
+      console.log(data);
+
+      id('container').classList.add('none');
+
+      let numOfPlanets = data.data[0].length;
+      let numOfIterations = data.data.length;
+
+      let newPlanets = [];
+      for(let i = 0; i < numOfPlanets; i++) {
+        let planet = createSimPlanet();
+        newPlanets.push(planet);
+      }
+
+
+      let i = 0;
+
+      const intervalId =setInterval(function() {
+        for (let j = 0; j < numOfPlanets; j++) {
+          // update position
+          let currPlannet = newPlanets[j];
+          let currXPos = data.data[i][j].x_pos;
+          let currYPos = data.data[i][j].y_pos;
+
+          currPlannet.style.top = currYPos + "px"; // plus offset?
+          currPlannet.style.left = currXPos + 'px'; // plus offset?
+        }
+        i++;
+
+        if (i >= numOfIterations) {
+            clearInterval(intervalId)
+        }
+      }, 10);
+
+    });
   }
 
 
+
+
+
+
+
   // Function to process the response and start the animation
-  function animatePlanets(response) {
+  function animatePlanetz(response) {
     response.json().then(data => {
       console.log(data)
       const frames = data.data;  // Assuming backend returns positions as 'positions' array
