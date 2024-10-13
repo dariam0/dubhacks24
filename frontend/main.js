@@ -18,12 +18,20 @@
   }
 
   function addPlanet() {
+    // create container
     newPlanet = gen('div');
+
+    // planet image
     newPlanetImg = gen('img');
     newPlanetImg.src = 'icons/planet.png';
     newPlanet.appendChild(newPlanetImg);
-    newPlanet.addEventListener('mousedown', mouseDown);
+
+    // add to DOM
     id('container').appendChild(newPlanet);
+
+    // add functionality
+    element.classList.add("planetContainer");
+    newPlanet.addEventListener('mousedown', planetMouseDown);
   }
 
   // code to add
