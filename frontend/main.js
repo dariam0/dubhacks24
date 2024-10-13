@@ -26,32 +26,51 @@
     id('container').appendChild(newPlanet);
   }
 
-  function mouseDown(e) {
+  // code to add
+
+  /**
+   *  activates when mouse clicks on planet
+      begin "dragging" functionality
+   * @param {*} e - event listener
+   */
+  function planetMouseDown(e) {
     startX = e.clientX;
     startY = e.clientY;
 
-    document.addEventListener('mousemove', mouseMove);
-    document.addEventListener('mouseup', mouseUp);
+    document.addEventListener('mousemove', planetMouseMove);
+    document.addEventListener('mouseup', planetMouseUp);
   }
 
-  function mouseMove(e) {
-    newX = startX - e.clientX;
-    newY = startY - e.clientY;
+  /**
+   * updates planet x and y position frame by frame
+   * @param {*} e  -event listner
+   */
+  function planetMouseMove(e) {
+    newX = startX - e.clientX
+    newY = startY - e.clientY + offset;
 
-    startX = e.clientX;
-    startY = e.clientY;
+    startX = e.clientX - offset;
+    startY = e.clientY - offset;
 
-    card.style.top = startY + 'px';
-    card.style.left = startX + 'px';
+    e.target.style.top = startY + 'px';
+    e.target.style.left = startX + 'px';
 
     console.log({ newX, newY });
     console.log({ startX, startY });
 
   }
 
-  function mouseUp(e) {
+  /**
+   * ending dragging functionality
+   * precondition: planet is being dragged
+   * @param {*} e - functionality
+   */
+  function planetMouseUp(e) {
     document.removeEventListener('mousemove', mouseMove);
   }
+
+
+  /** General DOM functions */
 
   function id(id) {
     return document.getElementById(id);
