@@ -4,18 +4,57 @@
   let offsetX = 0;
   let offsetY = 0;
   function init() {
-    console.log('hello world');
     /* for every button, when clicked, instantiate a new planet onto the container */
     let buttonList = qsa('button');
-    console.log(buttonList);
     for (let i = 0; i < buttonList.length; i++) {
       buttonList[i].addEventListener('click', addPlanet);
     }
+    // TODO: call ur fetch request here
+    //id("runSim").addEventListener('click', compileAllPlanets);
+
     /**
      * const card = document.getElementById('card');
 
     card.addEventListener('mousedown', mouseDown);
     */
+  }
+
+
+
+  function compileAllPlanets() {
+    // for each planet
+    let planets = document.querySelectorAll(".planetContainer");
+    console.log(planets);
+    let items = [];
+
+    for (let i = 0; i < planets.length; i++) {
+      // get data for each]
+
+      let currentPlannet = planets[i];
+      let xPos = currentPlannet.pageX;
+      let yPos = currentPlannet.pageY;
+
+      let mass = 2; // change later
+
+      //angle-slider
+      // magn-slider
+
+      let angeVal = document.querySelector(".angle-slider").value;
+      let magVal = document.querySelector(".magn-slider").value;
+
+      let planetChild = {"x_pos": xPos,
+                        "y_pos": yPos,
+                        "angle": angeVal,
+                        "magnitude": magVal,
+                        "radius": 10,
+                        "mass": mass
+       };
+
+
+       items.push(planetChild);
+    }
+
+    return '{"data":{"items":'   +  JSON.stringify(items)  + '} }';
   }
 
   function addPlanet() {
@@ -34,7 +73,7 @@
     sliderMag = gen('input');
 
     promptDiv.appendChild(form);
-    form.innerHTML = '<p>Angle</p>        <input type="range" min="1" max="360" value="0" class="slider" id="angle-slider">        <p>Magnitude</p>        <input type="range" min="1" max="100" value="50" class="slider" id="magn-slider"></input>';
+    form.innerHTML = '<p>Angle</p>        <input type="range" min="1" max="360" value="0" class="slider angle-slider">        <p>Magnitude</p>        <input type="range" min="1" max="100" value="50" class="slider magn-slider"></input>';
 
 
 
@@ -101,9 +140,6 @@
 
     e.target.style.top = startY + 'px';
     e.target.style.left = startX + 'px';
-
-    console.log({ newX, newY });
-    console.log({ startX, startY });
 
   }
 
