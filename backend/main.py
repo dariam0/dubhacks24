@@ -44,23 +44,23 @@ def simulate():
 
     # Check if necessary data are there
     for i in range(num_obj):
-        if "angle" not in data[i]:
+        if "angle" not in data[i] or data[i]["angle"] is None:
             return jsonify({"code": 400, "res": False, "msg": "No angle provided"})
-        if "x_pos" not in data[i]:
+        if "x_pos" not in data[i] or data[i]["x_pos"] is None:
             return jsonify({"code": 400, "res": False, "msg": "No x_pos provided"})
-        if "y_pos" not in data[i]:
+        if "y_pos" not in data[i] or data[i]["y_pos"] is None:
             return jsonify({"code": 400, "res": False, "msg": "No y_pos provided"})
-        if "mass" not in data[i]:
+        if "mass" not in data[i] or data[i]["mass"] is None:
             return jsonify({"code": 400, "res": False, "msg": "No mass provided"})
-        if "magnitude" not in data[i]:
+        if "magnitude" not in data[i] or data[i]["magnitude"] is None:
             return jsonify({"code": 400, "res": False, "msg": "No magnitude provided"})
-        if "radius" not in data[i]:
+        if "radius" not in data[i] or data[i]["radius"] is None:
             return jsonify({"code": 400, "res": False, "msg": "No radius provided"})
 
         # Load data
         # Decompose the velocity
-        v_x.append(1.0 * data[i]["magnitude"] * math.cos(math.radians(data[i]["angle"])))
-        v_y.append(1.0 * data[i]["magnitude"] * math.sin(math.radians(data[i]["angle"])))
+        v_x.append(1.0 * int(data[i]["magnitude"]) * math.cos(math.radians(int(data[i]["angle"]))))
+        v_y.append(1.0 * int(data[i]["magnitude"]) * math.sin(math.radians(int(data[i]["angle"]))))
         x_x.append(data[i]["x_pos"])
         x_y.append(data[i]["y_pos"])
 
