@@ -28,12 +28,20 @@ def simulate():
     data = request.json
 
     # Check if necessary data are there
+    if not isinstance(data, dict):
+        return make_response(jsonify({"code": 400, "res": False, "msg": "Incorrect type for request"}), 400)
     if "data" not in data:
         return make_response(jsonify({"code": 400, "res": False, "msg": "No data provided"}), 400)
-    if "items" not in data["data"] or len(data["data"]) is 0:
+    if not isinstance(data["data"], dict):
+        return make_response(jsonify({"code": 400, "res": False, "msg": "Incorrect type for data"}), 400)
+    if "items" not in data["data"] or len(data["data"]) == 0:
         return make_response(jsonify({"code": 400, "res": False, "msg": "No items provided"}), 400)
+    if not isinstance(data["data"]["items"], list):
+        return make_response(jsonify({"code": 400, "res": False, "msg": "Incorrect type for items"}), 400)
     if "time" not in data["data"]:
         return make_response(jsonify({"code": 400, "res": False, "msg": "No time provided"}), 400)
+    if not isinstance(data["data"]["time"], int):
+        return make_response(jsonify({"code": 400, "res": False, "msg": "Incorrect type for time"}), 400)
 
     data = data["data"]
     time = data["time"]
@@ -61,6 +69,19 @@ def simulate():
             return make_response(jsonify({"code": 400, "res": False, "msg": "No magnitude provided"}), 400)
         if "radius" not in data[i] or data[i]["radius"] is None:
             return make_response(jsonify({"code": 400, "res": False, "msg": "No radius provided"}), 400)
+
+        if not isinstance(data[i]["angle"], str):
+            return make_response(jsonify({"code": 400, "res": False, "msg": "Incorrect type for angle"}), 400)
+        if not isinstance(data[i]["x_pos"], int):
+            return make_response(jsonify({"code": 400, "res": False, "msg": "Incorrect type for x_pos"}), 400)
+        if not isinstance(data[i]["y_pos"], int):
+            return make_response(jsonify({"code": 400, "res": False, "msg": "Incorrect type for y_pos"}), 400)
+        if not isinstance(data[i]["mass"], int):
+            return make_response(jsonify({"code": 400, "res": False, "msg": "Incorrect type for mass"}), 400)
+        if not isinstance(data[i]["magnitude"], str):
+            return make_response(jsonify({"code": 400, "res": False, "msg": "Incorrect type for magnitude"}), 400)
+        if not isinstance(data[i]["radius"], int):
+            return make_response(jsonify({"code": 400, "res": False, "msg": "Incorrect type for radius"}), 400)
 
     # Check for collisions
     for i in range(num_obj):
