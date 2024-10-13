@@ -12,11 +12,16 @@
           "radius": 10,
           "mass": 100000000000000
         }]
-      }
+      },
+      "time": 10
     }
     const jsonTest = JSON.stringify({});
     console.log(jsonTest);
-    fetch('http://127.0.0.1:80/simulate', { method: "POST", body: jsonTest })
+    fetch('http://127.0.0.1:80/simulate', { method: "POST", 
+      headers: {
+        'Content-Type': 'application/json'  // Add this header to specify JSON
+      },
+      body: jsonTest })
       .then(statusCheck)
       .then(testJson)
       .catch(fail)
