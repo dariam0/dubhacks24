@@ -102,7 +102,9 @@ def simulate():
 
                     # Decompose the acceleration and add to current velocity
                     v_x[i] = v_x[i] + DELTA_TIME * acceleration * math.cos(angle)
-                    v_y[i] = v_y[i] + DELTA_TIME * acceleration * math.sin(angle)
+
+                    # Top-up is (0, 0) for browsers, flip sign
+                    v_y[i] = v_y[i] - DELTA_TIME * acceleration * math.sin(angle)
 
                     if DEBUG:
                         print("Acceleration: " + str(acceleration))
@@ -112,7 +114,9 @@ def simulate():
 
             # Calculate new position
             x_x[i] = x_x[i] + DELTA_TIME * (v_x[i] + temp_v_x) * 1.0 / 2
-            x_y[i] = x_y[i] + DELTA_TIME * (v_y[i] + temp_v_y) * 1.0 / 2
+
+            # Top-up is (0, 0) for browsers, flip sign
+            x_y[i] = x_y[i] - DELTA_TIME * (v_y[i] + temp_v_y) * 1.0 / 2
 
             if DEBUG:
                 print("x_x[i]: " + str(x_x[i]))
