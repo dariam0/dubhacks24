@@ -72,11 +72,13 @@
                         "mass": mass
        };
 
+       console.log(planetChild)
+
 
        items.push(planetChild);
     }
 
-    return '{"data":{"items":'   +  JSON.stringify(items)  + '} }';
+    return '{"data":{"items":'  +  JSON.stringify(items)  + ', "time": 1}  }';
   }
 
 
