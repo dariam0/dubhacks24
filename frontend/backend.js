@@ -2,6 +2,7 @@
   window.addEventListener('load', init);
 
   function init() {
+    id('action').classList.add("none");
     const test = {
       "data": {
         "items": [{
@@ -76,7 +77,7 @@
        items.push(planetChild);
     }
 
-    return '{"data":{"items":'  +  JSON.stringify(items)  + ', "time": 10}  }';
+    return '{"data":{"items":'  +  JSON.stringify(items)  + ', "time": 3}  }';
   }
 function createSimPlanet() {
     // create container
@@ -97,6 +98,7 @@ function createSimPlanet() {
 
   function animatePlanets(response) {
     response.json().then(data => {
+      id('action').classList.remove("none");
       console.log(data);
 
       id('container').classList.add('none');
@@ -130,7 +132,22 @@ function createSimPlanet() {
         }
       }, 10);
 
+      setTimeout(function() {
+        reset()
+
+      }, 10 *numOfIterations +  1000);
+
     });
+
+
+
+  }
+
+
+  function reset() {
+    id('container').classList.remove("none");
+    id('action').innerHTML = '';
+    id('action').classList.add("none");
   }
 
 
