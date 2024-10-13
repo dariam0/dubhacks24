@@ -20,11 +20,11 @@ This project simulates gravitational forces between planets in a 2D plane. Users
 
 ## Technologies Used
 
-- **Frontend**: 
+- **Frontend**:
   - HTML
   - CSS
   - JavaScript
-- **Backend**: 
+- **Backend**:
   - Python (Flask)
 - **Animation**: JavaScript `requestAnimationFrame` for smooth real-time updates.
 
@@ -85,3 +85,8 @@ dubhacks25/
 ├── .git/                       # Git repository data
 ├── README.md                   # This README file
 └── .gitignore                  # Files and directories to ignore in Git
+```
+
+## Attribute credits
+
+Flavicon design made by [juicy_fish](https://www.flaticon.com/free-icon/planet_5551395?term=planet&page=1&position=37&origin=search&related_id=5551395) on Flaticon.
