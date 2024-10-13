@@ -88,7 +88,7 @@ def simulate():
     # Check for collisions
     for i in range(num_obj):
         for j in range(i + 1, num_obj):
-            if dist_sqr(data[i]["x_pos"], data[j]["x_pos"], data[i]["y_pos"], data[j]["y_pos"]) <= \
+            if dist_sqr(data[i]["x_pos"], data[j]["x_pos"], data[i]["y_pos"], data[j]["y_pos"])  ** 0.5 <= \
                     data[i]["radius"] + data[j]["radius"] + COLLISION_THRESHOLD:
                 return make_response(jsonify({"code": 400, "res": False, "msg": "Collision detected for objects " +
                                                                                 str(i) + " and " + str(j)}), 400)
@@ -151,7 +151,7 @@ def simulate():
                 if DEBUG:
                     print("Distance: " + str(dist_sqr(x_x[i], x_x[j], x_y[i], x_y[j])))
                     print("Boundaries: " + str(data[i]["radius"] + data[j]["radius"] + COLLISION_THRESHOLD))
-                if dist_sqr(x_x[i], x_x[j], x_y[i], x_y[j]) <= \
+                if dist_sqr(x_x[i], x_x[j], x_y[i], x_y[j]) ** 0.5 <= \
                         data[i]["radius"] + data[j]["radius"] + COLLISION_THRESHOLD:
                     # There is a collision, flip the direction of the velocity
                     v_x[i] = -1 * COEFFICIENT_OF_RESTITUTION * v_x[i]
