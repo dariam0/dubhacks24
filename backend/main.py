@@ -86,7 +86,7 @@ def simulate():
     # Check for collisions
     for i in range(num_obj):
         for j in range(i + 1, num_obj):
-            if dist(data[i]["x_pos"], data[j]["x_pos"], data[i]["y_pos"], data[j]["y_pos"]) <= \
+            if dist_sqr(data[i]["x_pos"], data[j]["x_pos"], data[i]["y_pos"], data[j]["y_pos"]) <= \
                     data[i]["radius"] + data[j]["radius"] + COLLISION_THRESHOLD:
                 return make_response(jsonify({"code": 400, "res": False, "msg": "Collision detected for objects " +
                                                                                 str(i) + " and " + str(j)}), 400)
@@ -112,7 +112,7 @@ def simulate():
             for j in range(num_obj):
                 if i != j:
                     # Calculate acceleration
-                    acceleration = G * data[j]["mass"] / dist(orig_x_x[i], orig_x_x[j], orig_x_y[i], orig_x_y[j])
+                    acceleration = G * data[j]["mass"] / dist_sqr(orig_x_x[i], orig_x_x[j], orig_x_y[i], orig_x_y[j])
 
                     # Calculate the direction of the force
                     flat_line = np.array([1, 0])
@@ -147,9 +147,9 @@ def simulate():
         for i in range(num_obj):
             for j in range(i + 1, num_obj):
                 if DEBUG:
-                    print("Distance: " + str(dist(x_x[i], x_x[j], x_y[i], x_y[j])) )
+                    print("Distance: " + str(dist_sqr(x_x[i], x_x[j], x_y[i], x_y[j])))
                     print("Boundaries: " + str(data[i]["radius"] + data[j]["radius"] + COLLISION_THRESHOLD))
-                if dist(x_x[i], x_x[j], x_y[i], x_y[j]) <= \
+                if dist_sqr(x_x[i], x_x[j], x_y[i], x_y[j]) <= \
                         data[i]["radius"] + data[j]["radius"] + COLLISION_THRESHOLD:
                     # There is a collision, flip the direction of the velocity
                     v_x[i] = -1 * COEFFICIENT_OF_RESTITUTION * v_x[i]
@@ -179,9 +179,9 @@ def unit_vector(vector):
     return vector / np.linalg.norm(vector)
 
 
-def dist(x_pos1, x_pos2, y_pos1, y_pos2):
+def dist_sqr(x_pos1, x_pos2, y_pos1, y_pos2):
     """Calculates the distance between two points"""
-    return math.sqrt((x_pos1 - x_pos2) ** 2 + (y_pos1 - y_pos2) ** 2)
+    return (x_pos1 - x_pos2) ** 2 + (y_pos1 - y_pos2) ** 2
 
 
 if __name__ == '__main__':
