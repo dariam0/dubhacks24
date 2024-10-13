@@ -25,8 +25,41 @@
     // add to DOM
     id('container').appendChild(newPlanet);
 
+    promptDiv = gen('div');
+    form = gen('form');
+    angleText = gen('p');
+    sliderAngle = gen('input');
+
+    magText = gen('p');
+    sliderMag = gen('input');
+
+    promptDiv.appendChild(form);
+    form.innerHTML = '<p>Angle</p>        <input type="range" min="1" max="360" value="0" class="slider" id="angle-slider">        <p>Magnitude</p>        <input type="range" min="1" max="100" value="50" class="slider" id="magn-slider"></input>';
+
+
+
+    newPlanet.appendChild(promptDiv);
+
+
+
+    /*
+
+
+    <div>
+      <form class="slider-form">
+        <p>Angle</p>
+        <input type="range" min="1" max="360" value="0" class="slider" id="angle-slider">
+        <p>Magnitude</p>
+        <input type="range" min="1" max="100" value="50" class="slider" id="magn-slider">
+      </form>
+    </div>
+
+    */
+
     // add functionality
     newPlanet.classList.add("planetContainer");
+    form.classList.add("slider-form");
+    promptDiv.classList.add("hidden");
     newPlanet.addEventListener('mousedown', planetMouseDown);
 
 
@@ -48,7 +81,12 @@
     // e.target.style.left = startX + 'px';
 
 
+    if (!e.target.querySelector("form")) {
+      return;
+    }
 
+
+    e.target.querySelector("form").classList.add("hidden");
     e.target.addEventListener('mousemove', planetMouseMove);
     e.target.addEventListener('mouseup', planetMouseUp);
   }
@@ -76,6 +114,13 @@
    */
   function planetMouseUp(e) {
     e.target.removeEventListener('mousemove', planetMouseMove);
+
+    if (!e.target.querySelector(".hidden")) {
+      return;
+    }
+
+
+    e.target.querySelector(".hidden").classList.remove("hidden");
   }
 
 
