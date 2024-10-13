@@ -1,4 +1,4 @@
-# Planetary Simulation Project - DubHacks 25
+# Planetary Simulation Project - DubHacks 24
 
 This project simulates gravitational forces between planets in a 2D plane. Users can interact with the simulation by placing different types of planets on the screen and adjusting their properties, such as angle, magnitude, and position. The backend performs calculations for gravitational interactions and updates planet positions over time.
 
