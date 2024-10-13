@@ -24,6 +24,7 @@ body {
 
 #card-container {
   display: flex;
+  justify-content: space-between;
 }
 
 .card {
@@ -32,11 +33,14 @@ body {
 }
 
 div>img {
-  display: flex;
-  flex-direction: column;
   width: 150px;
   height: 150px;
   border-radius: 5px;
+}
+
+.select-planet {
+  display: flex;
+  flex-direction: column;
 }
 
 #container {
@@ -54,7 +58,8 @@ div>img {
 }
 
 /* Hover and focus effect */
-#runSim:hover, #runSim:focus {
+#runSim:hover,
+#runSim:focus {
   background-color: #4b127ccc;
   transform: translateY(-2px);
 }
